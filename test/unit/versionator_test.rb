@@ -79,4 +79,35 @@ class VersionatorTest < ActiveSupport::TestCase
     version.bump(:major)
     assert_equal version.version, "2.0.0"
   end
+  
+  test "git checkout" do
+    version = Versionator::Version.new
+    output = version.git_checkout
+    p output
+    p output.include?("Already on 'master'")
+    
+    p output.include?("Switched to branch 'master'")
+    assert (output.include?("Already on 'master'") or output.include?("Switched to branch 'master'"))
+  end
+  
+  test "git pull" do
+    version = Versionator::Version.new
+    output = version.git_pull
+    assert output.include?("Already up-to-date.")
+  end
+  
+  test "git tag" do
+    version = Versionator::Version.new
+    #output = version.git_tag
+  end
+  
+  test "git commit" do
+    version = Versionator::Version.new
+    #output = version.git_commit
+  end
+  
+  test "git push" do
+    version = Versionator::Version.new
+    #output = version.git_push
+  end
 end
